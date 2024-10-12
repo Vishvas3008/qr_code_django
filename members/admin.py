@@ -8,7 +8,7 @@ import cloudinary.uploader
 import io
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("members")
 
 class YourModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
