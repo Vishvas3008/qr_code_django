@@ -168,21 +168,17 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'django.log'),
-            'formatter': 'verbose',
-        },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
         },
         'members': {  # Replace with your app's name
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
         },
     },
 }
+
 
