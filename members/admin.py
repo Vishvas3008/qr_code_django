@@ -6,6 +6,9 @@ import qrcode
 import cloudinary
 import cloudinary.uploader
 import io
+import logging
+
+logger = logging.getLogger(__name__)
 
 class YourModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
@@ -28,13 +31,13 @@ class YourModelAdmin(admin.ModelAdmin):
                 # Create the QR code
                 qr_data = f"{domain}/admin/members/member/{total.total}/change/"
                 img = qrcode.make(qr_data)
-                print('qr generated')
+                logger.info('QR code generated')
             except Exception as e:
-                print('33',e)
+                logger.error('Error while creating QR code: %s', str(e))
                 return HttpResponse(f'Error while creating QR code: {str(e)}')
 
             try:
-                # Upload the QR code directly to Cloudinary using configuration from Total model
+                # Upload the QR code directly to Cloudinary
                 img_byte_array = io.BytesIO()
                 img.save(img_byte_array, format='PNG')
                 img_byte_array.seek(0)
@@ -50,28 +53,30 @@ class YourModelAdmin(admin.ModelAdmin):
                 # Use the firstname and lastname for the public_id
                 public_id = f"{getattr(obj, 'firstname')}_{getattr(obj, 'lastname')}_{total.total}"
                 upload_result = cloudinary.uploader.upload(img_byte_array, public_id=public_id)
-                print('link generated',upload_result["secure_url"])
+                logger.info('Link generated: %s', upload_result["secure_url"])
 
                 # Store the URL in the object
                 obj.qr_code_url = upload_result["secure_url"]
                 obj.save()  # Save the object again to update with the QR code URL
             except Exception as e:
-                print('58',e)
+                logger.error('Error while uploading QR code to Cloudinary: %s', str(e))
                 return HttpResponse(f'Error while uploading QR code to Cloudinary: {str(e)}')
 
     def response_add(self, request, obj, post_url_continue=None):
         # Redirect to the newly uploaded QR code image link
         try:
             if hasattr(obj, 'qr_code_url'):
-                script = f"""
-                    <script type="text/javascript">
-                        window.open('{obj.qr_code_url}', '_blank');
-                        window.location.href = '{'/admin/members/member/'}';  // Redirect to the member list or desired page
-                    </script>
-                """
-                print('redirect')
-                return HttpResponse(script)  # Redirect to the image URL
+                #               script = f"""
+                #     <script type="text/javascript">
+                #         window.open('{obj.qr_code_url}', '_blank');
+                #         window.location.href = '{'/admin/members/member/'}';  // Redirect to the member list or desired page
+                #     </script>
+                # """
+                # logger.info('Redirecting to QR code URL')
+                # return HttpResponse(script)  # Redirect to the image URL
+                return HttpResponse(f'QR Code URL: {obj.qr_code_url}')
         except Exception as e:
+            logger.error('Error while generating response: %s', str(e))
             return HttpResponse(f'Error while generating response: {str(e)}')
         
         return super().response_add(request, obj, post_url_continue)
