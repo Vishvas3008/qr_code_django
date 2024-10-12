@@ -28,7 +28,9 @@ class YourModelAdmin(admin.ModelAdmin):
                 # Create the QR code
                 qr_data = f"{domain}/admin/members/member/{total.total}/change/"
                 img = qrcode.make(qr_data)
+                print('qr generated')
             except Exception as e:
+                print('33',e)
                 return HttpResponse(f'Error while creating QR code: {str(e)}')
 
             try:
@@ -48,11 +50,13 @@ class YourModelAdmin(admin.ModelAdmin):
                 # Use the firstname and lastname for the public_id
                 public_id = f"{getattr(obj, 'firstname')}_{getattr(obj, 'lastname')}_{total.total}"
                 upload_result = cloudinary.uploader.upload(img_byte_array, public_id=public_id)
+                print('link generated',upload_result["secure_url"])
 
                 # Store the URL in the object
                 obj.qr_code_url = upload_result["secure_url"]
                 obj.save()  # Save the object again to update with the QR code URL
             except Exception as e:
+                print('58',e)
                 return HttpResponse(f'Error while uploading QR code to Cloudinary: {str(e)}')
 
     def response_add(self, request, obj, post_url_continue=None):
@@ -65,6 +69,7 @@ class YourModelAdmin(admin.ModelAdmin):
                         window.location.href = '{'/admin/members/member/'}';  // Redirect to the member list or desired page
                     </script>
                 """
+                print('redirect')
                 return HttpResponse(script)  # Redirect to the image URL
         except Exception as e:
             return HttpResponse(f'Error while generating response: {str(e)}')
