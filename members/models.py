@@ -7,6 +7,7 @@ class Member(models.Model):
   member_id = models.IntegerField(default=1)
   firstname = models.CharField(max_length=255)
   lastname = models.CharField(max_length=255)
+  qr_code_url = models.CharField(max_length=255)
   def __str__(self):
         return f"{self.firstname} {self.lastname}"
 
