@@ -1,16 +1,11 @@
-"""
-WSGI config for qr_code project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
-"""
-
 import os
-
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qr_code.settings')
+# Set the default settings module for the 'DJANGO_SETTINGS_MODULE' environment variable
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qr_code.settings')  # Adjust to your settings module
 
+# Get the WSGI application
 application = get_wsgi_application()
+
+# Vercel expects the handler to be named `app`
+app = application  # This line is important for Vercel
