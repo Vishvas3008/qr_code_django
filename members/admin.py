@@ -83,4 +83,3 @@ class YourModelAdmin(admin.ModelAdmin):
 
 # Register models
 admin.site.register(Member, YourModelAdmin)
-admin.site.register(Total)
