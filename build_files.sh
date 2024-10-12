@@ -1,4 +1,5 @@
 #!/bin/bash
 
-# Collect static files
-python manage.py collectstatic --noinput
+echo "Starting static files collection..."
+python3 manage.py collectstatic --noinput
+echo "Static files collection completed."
