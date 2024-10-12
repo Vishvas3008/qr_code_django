@@ -1,1 +1,17 @@
 .vercel
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# Django stuff:
+*.log
+*.sqlite3
+db.sqlite3
+
+# Static files
+/staticfiles/
