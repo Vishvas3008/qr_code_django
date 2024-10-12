@@ -25,9 +25,12 @@ SECRET_KEY = 'django-insecure-ov4%0^w09hdq66t!gopc81iwj21b(2a$)n--4g@&rq)8=0yp%x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['https://qr-code-django.vercel.app/.vercel.app']
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://9cf2-115-96-55-14.ngrok-free.app',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -74,14 +77,23 @@ WSGI_APPLICATION = 'qr_code.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # The database name you found
+        'USER': 'postgres.wgjocqptpfxkkersofig',  # Usually 'postgres'
+        'PASSWORD': 'qrcode@databsae',  # The password you set
+        'HOST': 'aws-0-ap-south-1.pooler.supabase.com',  # The host name you found
+        'PORT': '6543',  # Default port for PostgreSQL
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
