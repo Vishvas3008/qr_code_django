@@ -66,15 +66,15 @@ class YourModelAdmin(admin.ModelAdmin):
         # Redirect to the newly uploaded QR code image link
         try:
             if hasattr(obj, 'qr_code_url'):
-                #               script = f"""
-                #     <script type="text/javascript">
-                #         window.open('{obj.qr_code_url}', '_blank');
-                #         window.location.href = '{'/admin/members/member/'}';  // Redirect to the member list or desired page
-                #     </script>
-                # """
-                # logger.info('Redirecting to QR code URL')
-                # return HttpResponse(script)  # Redirect to the image URL
-                return HttpResponse(f'QR Code URL: {obj.qr_code_url}')
+                script = f"""
+                    <script type="text/javascript">
+                        window.open('{obj.qr_code_url}', '_blank');
+                        window.location.href = '{'/admin/members/member/'}';  // Redirect to the member list or desired page
+                    </script>
+                """
+                logger.info('Redirecting to QR code URL')
+                return HttpResponse(script)  # Redirect to the image URL
+                # return HttpResponse(f'QR Code URL: {obj.qr_code_url}')
         except Exception as e:
             logger.error('Error while generating response: %s', str(e))
             return HttpResponse(f'Error while generating response: {str(e)}')

@@ -4,7 +4,6 @@ from django.db import models
 from django.db import models
 
 class Member(models.Model):
-  member_id = models.IntegerField(default=1)
   firstname = models.CharField(max_length=255)
   lastname = models.CharField(max_length=255)
   qr_code_url = models.URLField(null=True, blank=True)  # Ensure this line exists
