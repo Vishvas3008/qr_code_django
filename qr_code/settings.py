@@ -41,13 +41,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory to collect static files
 
 INSTALLED_APPS = [
+    # 'qr_code',
+    'members', # add this line
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'members', # add this line
 ]
 
 MIDDLEWARE = [

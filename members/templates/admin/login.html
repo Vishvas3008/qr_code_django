@@ -1,0 +1,38 @@
+{% extends "admin/login.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Hide the header */
+    #header {
+        display: none;
+    }
+    
+    /* Optionally, hide the footer as well */
+    #footer {
+        display: none; /* Uncomment if you want to hide the footer */
+    }
+    
+    /* Center the login form */
+    .login-form {
+        text-align: center;
+    }
+</style>
+
+<div style="text-align: center; display:flex;align-item:center; gap:16px">
+    <img src="https://res.cloudinary.com/dfucdeehz/image/upload/c_scale,h_400,w_400/tj2thozs0o3krhkytpvz.jpg" alt="Logo" width="50" height="50" style="margin-bottom: 20px;">
+    <h1 style="margin-top:12px">Welcome to Success Info Tech</h1>
+</div>
+
+{{ block.super }}
+{% endblock %}
+
+
+{% comment %} {% extends "admin/login.html" %}
+{% block content %}
+<div style="text-align: center; display:flex;align-item:center; gap:16px">
+    <img src="https://res.cloudinary.com/dfucdeehz/image/upload/c_scale,h_400,w_400/tj2thozs0o3krhkytpvz.jpg" alt="Logo" width="50" height="50" style="margin-bottom: 20px;">
+    <h1>Welcome to Success Info Tech</h1>
+</div>
+{{ block.super }}
+{% endblock %} {% endcomment %}
